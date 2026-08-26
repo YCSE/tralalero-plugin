@@ -1,0 +1,26 @@
+{
+  "name": "tralalero",
+  "owner": {
+    "name": "YCSE",
+    "url": "https://tralalero.app"
+  },
+  "plugins": [
+    {
+      "name": "tralalero-workboard",
+      "source": {
+        "source": "github",
+        "repo": "YCSE/tralalero-plugin"
+      },
+      "description": "Work cards on a Tralalero workboard — read the customer's change requests, follow the per-card work prompt, and report back for review.",
+      "version": "1.0.0",
+      "homepage": "https://tralalero.app",
+      "license": "MIT",
+      "keywords": [
+        "tralalero",
+        "workboard",
+        "kanban",
+        "mcp"
+      ]
+    }
+  ]
+}

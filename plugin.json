@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tralalero-workboard",
+  "version": "1.0.0",
+  "description": "Work cards on a Tralalero workboard — read the customer's change requests, follow the per-card work prompt, and report back for review.",
+  "author": {
+    "name": "YCSE",
+    "url": "https://tralalero.app"
+  },
+  "homepage": "https://tralalero.app",
+  "repository": "https://github.com/YCSE/tralalero-plugin",
+  "license": "MIT",
+  "keywords": [
+    "tralalero",
+    "workboard",
+    "kanban",
+    "mcp"
+  ]
+}
