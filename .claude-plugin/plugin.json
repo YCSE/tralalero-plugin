@@ -1,6 +1,6 @@
 {
-  "name": "tralalero-workboard",
-  "version": "1.0.0",
+  "name": "tralalero",
+  "version": "1.1.0",
   "description": "Work cards on a Tralalero workboard — read the customer's change requests, follow the per-card work prompt, and report back for review.",
   "author": {
     "name": "YCSE",

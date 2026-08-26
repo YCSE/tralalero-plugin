@@ -1,5 +1,5 @@
 ---
-name: tralalero-workboard
+name: tralalero
 description: Use when working cards on a Tralalero workboard — reading a customer's
   change request, starting work, reporting back for review, or asking the customer a
   blocking question. Triggers on "Tralalero", "트랄랄레로", "workboard", "워크보드",

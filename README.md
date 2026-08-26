@@ -14,7 +14,7 @@ For Claude Code:
 
 ```sh
 claude plugin marketplace add YCSE/tralalero-plugin
-claude plugin install tralalero-workboard@tralalero
+claude plugin install tralalero@tralalero
 ```
 
 (Inside an interactive Claude Code session, the equivalent slash commands are `/plugin marketplace add ...` and `/plugin install ...`.)
@@ -37,7 +37,7 @@ In the Tralalero app, open Settings > MCP connection and issue a token. It is sh
 | `add_comment` | Adds a customer-facing comment. |
 | `ask_customer` | Sends one blocking question to the customer. |
 
-The package also includes one `tralalero-workboard` skill that defines the safe end-to-end card cycle.
+The package also includes one `tralalero` skill that defines the safe end-to-end card cycle.
 
 ## Verify
 
