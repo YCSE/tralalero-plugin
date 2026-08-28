@@ -38,7 +38,7 @@ Always pass an explicit `boardId` to `get_work_prompt` and all four write tools.
 1. Call `list_boards` and identify the board by its returned name, role, and locale.
 2. Call `list_cards`, or use `list_updates` with the saved cursor when polling.
 3. Call `get_card` and read the entire request, all comments, the rework reason, and every attachment.
-4. Call `get_work_prompt`, read it in full, and follow it exactly.
+4. Call `get_work_prompt`, read it in full, and follow it exactly. When the card has attachments, the prompt ends with a download appendix of time-limited signed URLs — run its `curl` lines to save the files under `/tmp/workboard-att/`, then open them with the Read tool (read images and PDFs with vision). `get_card` also returns a signed `url` per attachment, valid until `attachmentUrlsExpireAt`; when a link has expired, call the tool again to reissue instead of reusing the old URL.
 5. Call `start_work` immediately before touching the code.
 6. Implement and verify the requested change under the work prompt's repository rules.
 7. Call `submit_for_review` with a clear customer-facing verification note.
