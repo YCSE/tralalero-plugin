@@ -12,7 +12,7 @@
         "repo": "YCSE/tralalero-plugin"
       },
       "description": "Work cards on a Tralalero workboard — read the customer's change requests, follow the per-card work prompt, and report back for review.",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "homepage": "https://tralalero.app",
       "license": "MIT",
       "keywords": [

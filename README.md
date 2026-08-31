@@ -1,6 +1,6 @@
 # Tralalero workboard plugin
 
-Work Tralalero customer change-request cards from an AI coding agent without leaving the workboard workflow.
+Work Tralalero customer change-request cards from an AI coding agent without leaving the workboard workflow. Version 2 uses a canonical WorkRef for every card action.
 
 ## Install
 
@@ -37,7 +37,9 @@ In the Tralalero app, open Settings > MCP connection and issue a token. It is sh
 | `add_comment` | Adds a customer-facing comment. |
 | `ask_customer` | Sends one blocking question to the customer. |
 
-The package also includes one `tralalero` skill that defines the safe end-to-end card cycle.
+`list_cards` and `list_updates` require an explicit board ID. Every card tool uses the exact returned WorkRef (`/work/{boardId}/cards/{cardId}`); a pasted canonical Tralalero card URL is also a WorkRef. Preserve that pasted value unchanged for all six card tools: `get_card`, `get_work_prompt`, `start_work`, `submit_for_review`, `add_comment`, and `ask_customer`. Its direct reads return `board.boardId` for polling, while `get_work_prompt.structured.locale` is the customer-comment language. Never select a card from a current repository, Git remote, or `WB-n` number.
+
+The package also includes one `tralalero` skill that defines the safe end-to-end card cycle. GitHub is optional: you can read and update MCP cards without a connected repository. When a connected-card work prompt results in commits or a pull request, copy the exact `Tralalero-Work-Ref: /work/{boardId}/cards/{cardId}` trailer from that prompt into every commit and the PR body.
 
 ## Verify
 
