@@ -1,0 +1,43 @@
+{
+  "name": "tralalero",
+  "version": "2.1.0",
+  "description": "Work cards on a Tralalero workboard — read customer change requests, follow each card's work prompt, and report progress for review.",
+  "author": {
+    "name": "YCSE",
+    "url": "https://tralalero.app"
+  },
+  "homepage": "https://tralalero.app",
+  "repository": "https://github.com/YCSE/tralalero-plugin",
+  "license": "MIT",
+  "keywords": [
+    "tralalero",
+    "workboard",
+    "kanban",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "tralalero": {
+      "type": "http",
+      "url": "https://tralalero.app/mcp",
+      "bearer_token_env_var": "TRALALERO_MCP_TOKEN"
+    }
+  },
+  "interface": {
+    "displayName": "Tralalero Workboard",
+    "shortDescription": "Implement and report customer workboard requests",
+    "longDescription": "Connect Codex to a Tralalero workboard, read the complete customer request and canonical work prompt, mark work in progress, ask blocking questions, and submit verified changes for customer review.",
+    "developerName": "YCSE",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://tralalero.app",
+    "defaultPrompt": [
+      "Open my Tralalero workboard and help me complete a customer request."
+    ],
+    "brandColor": "#1557FF"
+  }
+}

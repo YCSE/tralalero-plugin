@@ -1,0 +1,20 @@
+{
+  "name": "tralalero",
+  "interface": {
+    "displayName": "Tralalero"
+  },
+  "plugins": [
+    {
+      "name": "tralalero",
+      "source": {
+        "source": "local",
+        "path": "./plugins/tralalero"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

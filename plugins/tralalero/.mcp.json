@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tralalero": {
+      "type": "http",
+      "url": "https://tralalero.app/mcp",
+      "bearer_token_env_var": "TRALALERO_MCP_TOKEN"
+    }
+  }
+}
