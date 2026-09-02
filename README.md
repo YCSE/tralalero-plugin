@@ -1,8 +1,8 @@
 # Tralalero workboard plugin
 
 Work Tralalero customer change-request cards from an AI coding agent without
-leaving the workboard workflow. Version 2.1 adds native Codex packaging while
-continuing to install the remote MCP tools and canonical WorkRef skill together.
+leaving the workboard workflow. Version 2.2 adds PR/whole-plan ScopeRefs and
+atomic grouped progress/review while keeping the canonical per-card WorkRef flow.
 
 ## Install
 
@@ -34,7 +34,7 @@ To install into every supported client detected on the current machine:
 npx plugins add YCSE/tralalero-plugin --scope user
 ```
 
-The package includes both the nine MCP tools and the `tralalero` skill that
+The package includes all twelve MCP tools and the `tralalero` skill that
 defines the safe end-to-end card cycle. If a client cannot load the plugin, use
 the [direct MCP fallback](https://tralalero.app/connect.md).
 
@@ -65,9 +65,12 @@ client.
 | `list_cards` | Lists work cards on a board. |
 | `get_card` | Reads the complete customer request and discussion. |
 | `get_work_prompt` | Returns the canonical per-card implementation instructions. |
+| `get_work_plan_scope` | Returns a copied PR or whole-plan prompt and its PASS checklist. |
 | `list_updates` | Polls new or changed card activity. |
 | `start_work` | Marks a card as in progress. |
+| `start_work_scope` | Atomically marks every card in a PR or whole plan as in progress. |
 | `submit_for_review` | Reports completion and requests customer review. |
+| `submit_scope_for_review` | Atomically posts per-card completion notes and moves a verified scope to review. |
 | `add_comment` | Adds a customer-facing comment. |
 | `ask_customer` | Sends one blocking question to the customer. |
 
@@ -79,6 +82,16 @@ for `get_card`, `get_work_prompt`, `start_work`, `submit_for_review`,
 polling, while `get_work_prompt.structured.locale` is the customer-comment
 language. Never select a card from a current repository, Git remote, or `WB-n`
 number.
+
+A copied work-plan prompt contains an exact ScopeRef. Preserve it unchanged:
+`/work/{boardId}/plans/{planId}` selects the whole plan and the same path followed
+by `/units/{unitId}` selects one PR. Read it with `get_work_plan_scope`, call
+`get_card` and `get_work_prompt` for every returned WorkRef and read both in full,
+call `start_work_scope` immediately before editing, and call
+`submit_scope_for_review` only after every returned criterion passes. Supply one
+PASS evidence item per criterion and one customer-facing comment per returned
+card WorkRef. The first start locks the plan to whole-plan or per-PR execution;
+the two modes cannot be mixed.
 
 GitHub is optional: MCP card reads and updates work without a connected
 repository. When a connected-card work prompt results in commits or a pull

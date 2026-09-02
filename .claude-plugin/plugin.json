@@ -1,7 +1,7 @@
 {
   "name": "tralalero",
-  "version": "2.1.0",
-  "description": "Work cards on a Tralalero workboard — read the customer's change requests, follow the per-card work prompt, and report back for review.",
+  "version": "2.2.0",
+  "description": "Work Tralalero cards or complete PR-scoped work plans with atomic progress and review reporting.",
   "author": {
     "name": "YCSE",
     "url": "https://tralalero.app"

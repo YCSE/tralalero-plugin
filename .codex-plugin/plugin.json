@@ -1,7 +1,7 @@
 {
   "name": "tralalero",
-  "version": "2.1.0",
-  "description": "Work cards on a Tralalero workboard — read customer change requests, follow each card's work prompt, and report progress for review.",
+  "version": "2.2.0",
+  "description": "Work Tralalero cards or complete PR-scoped work plans with atomic progress and review reporting.",
   "author": {
     "name": "YCSE",
     "url": "https://tralalero.app"
@@ -26,7 +26,7 @@
   "interface": {
     "displayName": "Tralalero Workboard",
     "shortDescription": "Implement and report customer workboard requests",
-    "longDescription": "Connect Codex to a Tralalero workboard, read the complete customer request and canonical work prompt, mark work in progress, ask blocking questions, and submit verified changes for customer review.",
+    "longDescription": "Connect Codex to a Tralalero workboard, follow per-card or PR-scoped long-running prompts, verify PASS checklists, and move every grouped card together for customer review.",
     "developerName": "YCSE",
     "category": "Developer Tools",
     "capabilities": [

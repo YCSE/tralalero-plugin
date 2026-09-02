@@ -6,13 +6,14 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   "WB-1"/"WB-n", "카드 작업", "수정요청", "검수 요청", a canonical
   /work/{boardId}/cards/{cardId} path or tralalero.app work URL, and on any
   tralalero MCP tool (list_boards, list_cards, get_card, get_work_prompt,
-  list_updates, start_work, submit_for_review, add_comment, ask_customer).
-version: 2.1.0
+  list_updates, start_work, submit_for_review, add_comment, ask_customer,
+  get_work_plan_scope, start_work_scope, submit_scope_for_review).
+version: 2.2.0
 ---
 
 # Tralalero workboard
 
-Non-technical customers submit change requests as cards on a Tralalero workboard. You implement those requests and use the nine MCP tools below to read the board, mark progress, communicate safely, and return completed work for review.
+Non-technical customers submit change requests as cards on a Tralalero workboard. You implement one card or a generated PR/whole-plan scope and use the twelve MCP tools below to read the work, mark progress, communicate safely, and return completed work for review.
 
 ## The work prompt is the canon
 
@@ -28,9 +29,12 @@ GitHub is optional: MCP card work is available even when the board has no GitHub
 | `list_cards` | List active cards or poll a board view. | Exact `boardId` |
 | `get_card` | Read the complete request, comments, rework reason, and attachments. | Exact `workRef` |
 | `get_work_prompt` | Read the canonical instructions for one card. | Exact `workRef` |
+| `get_work_plan_scope` | Read a generated PR or whole-plan prompt and PASS checklist. | Exact `scopeRef` |
 | `list_updates` | Poll changes since an ISO 8601 cursor. | Exact `boardId` |
 | `start_work` | Move a request into progress immediately before editing. | Exact `workRef` |
+| `start_work_scope` | Atomically move every card in a PR or whole plan into progress. | Exact `scopeRef` |
 | `submit_for_review` | Post the customer-facing completion note and request review. | Exact `workRef` |
+| `submit_scope_for_review` | Atomically post per-card notes and move a fully verified scope to review. | Exact `scopeRef` + exact checklist/card coverage |
 | `add_comment` | Add a customer-facing comment without moving the card. | Exact `workRef` |
 | `ask_customer` | Ask one genuinely blocking customer question. | Exact `workRef` |
 
@@ -51,6 +55,22 @@ When the user pastes a canonical path or `https://tralalero.app/work/{boardId}/c
 
 WB numbers restart at 1 for each board. They are human references only, never input selectors.
 
+`scopeRef` is only `/work/{boardId}/plans/{planId}` for a whole plan,
+`/work/{boardId}/plans/{planId}/units/{unitId}` for one PR, or the same paths on
+the exact `https://tralalero.app` origin. Preserve the copied value unchanged;
+never infer it from a card, repository, PR title, or current directory.
+
+## The work-plan cycle
+
+1. Preserve the exact `scopeRef` embedded in the copied long-running prompt.
+2. Call `get_work_plan_scope`, read its complete prompt, requirements, dependencies, and PASS checklist.
+3. For every returned `workRef`, call both `get_card` and `get_work_prompt` and read both responses in full before starting. This hydrates the complete customer request, comments, rework reason, attachments, and card-specific repository instructions; follow each work prompt's attachment procedure before editing.
+4. Call `start_work_scope` immediately before the first edit. The first start locks the plan to whole-plan or per-PR execution; never mix those modes.
+5. Implement in the returned PR/dependency order and verify every criterion. Do not mark a criterion PASS without concrete evidence.
+6. Call `submit_scope_for_review` with exactly one evidence entry for every returned `criterionId` and exactly one customer-facing completion comment for every returned card `workRef`.
+
+The scope write is all-or-zero: every grouped card enters progress/review together, or none do. A stale plan, an unmet dependency, one missing criterion, one missing card comment, or one invalid card state rejects the whole transition. Successful retries are idempotent and do not add duplicate comments.
+
 ## The work cycle
 
 1. Enter through one of the two modes above and obtain the exact `workRef`.
@@ -66,6 +86,8 @@ Write two to four plain sentences in the board locale. Autonomous entry obtains 
 
 The server rejects code fences and inline backticks, diff hunks containing `@@`, stack traces, shell commands, file paths shaped like `a/b/c` or `name.ext`, code symbols in camelCase, snake_case, or SCREAMING_SNAKE, paired SQL keywords, GitHub, localhost, or `file://` links, and secret-shaped values. Ordinary preview links are allowed, as are human UI directions such as “Settings > Notifications.” Questions sent through `ask_customer` have stricter rules described below. If a comment is rejected, rewrite it as language a customer can understand instead of mechanically deleting punctuation.
 
+The same rule applies independently to every `cardComments` item in `submit_scope_for_review`. Write a relevant 2–4 sentence note for each card rather than copying one generic note across the scope.
+
 ## ask_customer
 
 Use `ask_customer` only for blocking ambiguity: you have read the card, work prompt, comments, and attachments, still cannot choose safely, and a wrong choice would cause rework. Ask one question at a time, on one line of at most 120 characters, in the board locale.
@@ -78,4 +100,4 @@ Do not use it for a choice you can make yourself—make the choice and explain i
 
 ## When something fails
 
-If an error includes archive guidance, retrying is pointless because older completed cards move to monthly archives. A 401 means the token is missing or revoked. If `submit_for_review` posts the comment but fails to move the card, pass the returned `postedCommentId` back exactly as received. If a comment is rejected, rewrite it for the customer under the guard rules above.
+If an error includes archive guidance, retrying is pointless because older completed cards move to monthly archives. A 401 means the token is missing or revoked. `postedCommentId` is only for recovering a real comment ID returned by a pre-2.2 server; never invent one. If a comment is rejected, rewrite it for the customer under the guard rules above.
