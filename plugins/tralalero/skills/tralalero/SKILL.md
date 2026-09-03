@@ -8,7 +8,7 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   tralalero MCP tool (list_boards, list_cards, get_card, get_work_prompt,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 2.2.0
+version: 2.3.0
 ---
 
 # Tralalero workboard
@@ -66,10 +66,10 @@ never infer it from a card, repository, PR title, or current directory.
 2. Call `get_work_plan_scope`, read its complete prompt, requirements, dependencies, and PASS checklist.
 3. For every returned `workRef`, call both `get_card` and `get_work_prompt` and read both responses in full before starting. This hydrates the complete customer request, comments, rework reason, attachments, and card-specific repository instructions; follow each work prompt's attachment procedure before editing.
 4. Call `start_work_scope` immediately before the first edit. The first start locks the plan to whole-plan or per-PR execution; never mix those modes.
-5. Implement in the returned PR/dependency order and verify every criterion. Do not mark a criterion PASS without concrete evidence.
+5. Implement the scope and verify every criterion. The plan lists a suggested PR/dependency order; follow it when you can, but a preceding PR that has not started does not block a later one. Do not mark a criterion PASS without concrete evidence.
 6. Call `submit_scope_for_review` with exactly one evidence entry for every returned `criterionId` and exactly one customer-facing completion comment for every returned card `workRef`.
 
-The scope write is all-or-zero: every grouped card enters progress/review together, or none do. A stale plan, an unmet dependency, one missing criterion, one missing card comment, or one invalid card state rejects the whole transition. Successful retries are idempotent and do not add duplicate comments.
+The scope write is all-or-zero: every grouped card enters progress/review together, or none do. A stale plan, one missing criterion, one missing card comment, or one invalid card state rejects the whole transition. Successful retries are idempotent and do not add duplicate comments.
 
 ## The work cycle
 
