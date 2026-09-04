@@ -1,8 +1,8 @@
 # Tralalero workboard plugin
 
 Work Tralalero customer change-request cards from an AI coding agent without
-leaving the workboard workflow. Version 2.2 adds PR/whole-plan ScopeRefs and
-atomic grouped progress/review while keeping the canonical per-card WorkRef flow.
+leaving the workboard workflow. Version 2.4 adds request fingerprints and
+verified result/record commits while keeping unconnected workboards compatible.
 
 ## Install
 
@@ -90,14 +90,17 @@ by `/units/{unitId}` selects one PR. Read it with `get_work_plan_scope`, call
 call `start_work_scope` immediately before editing, and call
 `submit_scope_for_review` only after every returned criterion passes. Supply one
 PASS evidence item per criterion and one customer-facing comment per returned
-card WorkRef. The first start locks the plan to whole-plan or per-PR execution;
-the two modes cannot be mixed.
+card WorkRef. Pass every prompt's `expectedRequestFingerprint` when starting.
+The first start locks the plan to whole-plan or per-PR execution; the two modes
+cannot be mixed.
 
 GitHub is optional: MCP card reads and updates work without a connected
-repository. When a connected-card work prompt results in commits or a pull
-request, copy the exact
-`Tralalero-Work-Ref: /work/{boardId}/cards/{cardId}` trailer from that prompt
-into every commit and the PR body.
+repository. A start response reports whether a repository is connected. For a
+connected result, re-read the prompt after verification and put its exact
+`Tralalero-Work-Ref` and `Tralalero-Request-Fingerprint` trailers, plus the
+requested seven-cell history row, in final result commit A. Submit A's full SHA,
+branch, and optional open PR number. Tralalero verifies A and creates record
+commit B before moving the card or scope to review.
 
 ## Verify
 
