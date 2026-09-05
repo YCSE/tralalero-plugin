@@ -1,8 +1,9 @@
 # Tralalero workboard plugin
 
 Work Tralalero customer change-request cards from an AI coding agent without
-leaving the workboard workflow. Version 2.4 adds request fingerprints and
-verified result/record commits while keeping unconnected workboards compatible.
+leaving the workboard workflow. Version 2.5 makes the review request a plain
+completion notice: request fingerprints and Git references are optional records,
+and nothing is verified against the repository.
 
 ## Install
 
@@ -95,12 +96,13 @@ The first start locks the plan to whole-plan or per-PR execution; the two modes
 cannot be mixed.
 
 GitHub is optional: MCP card reads and updates work without a connected
-repository. A start response reports whether a repository is connected. For a
-connected result, re-read the prompt after verification and put its exact
-`Tralalero-Work-Ref` and `Tralalero-Request-Fingerprint` trailers, plus the
-requested seven-cell history row, in final result commit A. Submit A's full SHA,
-branch, and optional open PR number. Tralalero verifies A and creates record
-commit B before moving the card or scope to review.
+repository. When connected-card work produces commits or a pull request, copy
+the exact `Tralalero-Work-Ref` and `Tralalero-Request-Fingerprint` trailers
+from the work prompt into every commit and the PR body, and write the requested
+seven-cell history row. Passing the branch, result commit SHA, and PR number to
+`submit_for_review` is optional; Tralalero keeps them on the card's server-side
+work round (no screen renders them yet) and never verifies them or writes to the
+repository after the one-time ledger setup.
 
 ## Verify
 
