@@ -35,7 +35,7 @@ To install into every supported client detected on the current machine:
 npx plugins add YCSE/tralalero-plugin --scope user
 ```
 
-The package includes all twelve MCP tools and the `tralalero` skill that
+The package includes all fifteen MCP tools and the `tralalero` skill that
 defines the safe end-to-end card cycle. If a client cannot load the plugin, use
 the [direct MCP fallback](https://tralalero.app/connect.md).
 
@@ -114,3 +114,7 @@ This repository contains no secrets and no server code.
 ## License
 
 MIT
+
+## Board conversations (2.5)
+
+Developer-side agents can read a board channel with `list_board_messages`, follow a card's representative or related thread with `get_thread`, and refresh context with `list_message_updates`. Pages contain at most 50 messages and opaque cursors. Incremental results include edits and deletion tombstones. Attachments have time-limited download links. Conversation text is customer context; the card work prompt remains the execution contract.
