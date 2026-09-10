@@ -2,10 +2,7 @@
   "mcpServers": {
     "tralalero": {
       "type": "http",
-      "url": "https://tralalero.app/mcp",
-      "headers": {
-        "Authorization": "Bearer ${TRALALERO_MCP_TOKEN}"
-      }
+      "url": "https://tralalero.app/mcp"
     }
   }
 }

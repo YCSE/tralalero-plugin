@@ -9,7 +9,7 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 2.6.0
+version: 3.0.0
 ---
 
 # Tralalero workboard
@@ -112,4 +112,4 @@ Do not use it for a choice you can make yourself—make the choice and explain i
 
 ## When something fails
 
-If an error includes archive guidance, retrying is pointless because older completed cards move to monthly archives. A 401 means the token is missing or revoked. `postedCommentId` is only for recovering a real comment ID returned by a pre-2.2 server; never invent one. If a comment is rejected, rewrite it for the customer under the guard rules above.
+If an error includes archive guidance, retrying is pointless because older completed cards move to monthly archives. A 401 means this client's Tralalero sign-in is missing or expired: complete the OAuth sign-in in the client (Codex `codex mcp login tralalero`, Claude Code `/mcp` then Authenticate), or, on the personal access token fallback, that `TRALALERO_MCP_TOKEN` is missing or revoked. `postedCommentId` is only for recovering a real comment ID returned by a pre-2.2 server; never invent one. If a comment is rejected, rewrite it for the customer under the guard rules above.

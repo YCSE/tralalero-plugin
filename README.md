@@ -1,9 +1,9 @@
 # Tralalero workboard plugin
 
 Work Tralalero customer change-request cards from an AI coding agent without
-leaving the workboard workflow. Version 2.5 makes the review request a plain
-completion notice: request fingerprints and Git references are optional records,
-and nothing is verified against the repository.
+leaving the workboard workflow. The review request is a plain completion notice:
+request fingerprints and Git references are optional records, and nothing is
+verified against the repository.
 
 ## Install
 
@@ -39,24 +39,49 @@ The package includes all fifteen MCP tools and the `tralalero` skill that
 defines the safe end-to-end card cycle. If a client cannot load the plugin, use
 the [direct MCP fallback](https://tralalero.app/connect.md).
 
-## Token
+## Sign in
 
-In the Tralalero app, open **MY -> Connect AI tools** and issue a token. It is
-shown once. Never place it in project configuration or commit it to a
+The manifests carry no credentials. The server answers an unauthenticated call
+with `401` and its OAuth metadata, so each client runs its own sign-in against
+your Tralalero account and stores the result in user scope.
+
+- Codex CLI: approve the prompt shown by `codex plugin add`, or run
+  `codex mcp login tralalero` afterwards.
+- Claude Code: run `/mcp`, select `tralalero`, and choose Authenticate.
+- Cursor and VS Code: approve the OAuth prompt the `tralalero` server raises on
+  its first call.
+- Hermes Agent: use the personal access token below; it has no OAuth prompt.
+
+The browser opens a Tralalero consent page that names the requesting client and
+the single `workboard` permission. Approving it grants that client alone; revoke
+it later in **MY -> Connect AI tools**.
+
+### Upgrading from an earlier release
+
+Earlier releases wired the token for you; this release does not. After the
+plugin updates, a client that relied only on `TRALALERO_MCP_TOKEN` answers `401`
+until you either complete the sign-in above (recommended) or re-add the token in
+that client's user-scope configuration as described in the fallback below.
+Nothing else changes: tool names, inputs and the skill are the same.
+
+### Personal access token (fallback)
+
+Use a token only for a client without an OAuth sign-in, or to keep an existing
+install working. In the Tralalero app, open **MY -> Connect AI tools** and issue
+one. It is shown once. Never place it in project configuration or commit it to a
 customer's repository.
 
-- Codex and Claude plugin manifests can read `TRALALERO_MCP_TOKEN`. Persist its
-  export in the user shell profile (for zsh, `${ZDOTDIR:-$HOME}/.zshenv`) and
-  keep that file user-only. The app's copied setup does this without
-  overwriting the rest of the profile.
+- Codex and Claude plugin manifests can read `TRALALERO_MCP_TOKEN` when you add
+  the wiring yourself. Persist its export in the user shell profile (for zsh,
+  `${ZDOTDIR:-$HOME}/.zshenv`) and keep that file user-only.
 - Cursor (`~/.cursor/mcp.json`) and VS Code (**MCP: Open User Configuration**)
   require the literal user-scoped header
   `"Authorization": "Bearer <token>"`; they do not read the shell placeholder.
 - Hermes Agent stores the credential through its token prompt.
 
-Restart the client or open a new session after wiring the token. If a client
-cannot install the plugin, use the linked direct MCP fallback only for that
-client.
+Restart the client or open a new session after signing in or wiring a token. If
+a client cannot install the plugin, use the linked direct MCP fallback only for
+that client.
 
 ## What you get
 
@@ -106,7 +131,7 @@ repository after the one-time ledger setup.
 
 ## Verify
 
-Call `list_boards` after installing the plugin and configuring the token. A
+Call `list_boards` after installing the plugin and completing the sign-in. A
 successful response lists the workboards your Tralalero account can access.
 
 This repository contains no secrets and no server code.
@@ -115,6 +140,6 @@ This repository contains no secrets and no server code.
 
 MIT
 
-## Board conversations (2.5)
+## Board conversations
 
 Developer-side agents can read a board channel with `list_board_messages`, follow a card's representative or related thread with `get_thread`, and refresh context with `list_message_updates`. Pages contain at most 50 messages and opaque cursors. Incremental results include edits and deletion tombstones. Attachments have time-limited download links. Conversation text is customer context; the card work prompt remains the execution contract.
