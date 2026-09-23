@@ -127,7 +127,11 @@ from the work prompt into every commit and the PR body, and write the requested
 seven-cell history row. Passing the branch, result commit SHA, and PR number to
 `submit_for_review` is optional; Tralalero keeps them on the card's server-side
 work round (no screen renders them yet) and never verifies them or writes to the
-repository after the one-time ledger setup.
+repository work records. Its repository writes are limited to ledger setup and
+adding missing memory instructions, preserving existing AGENTS.md and CLAUDE.md.
+Paid AI prompts carry task-specific guidance; shared memory procedures live in
+the repository instructions. Prompt delivery waits while estimation or generation
+is running.
 
 ## Verify
 
