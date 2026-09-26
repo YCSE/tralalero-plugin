@@ -90,7 +90,7 @@ that client.
 | `list_boards` | Lists the boards, roles, and locales available to you. |
 | `list_cards` | Lists work cards on a board. |
 | `get_card` | Reads the complete customer request and discussion. |
-| `get_work_prompt` | Returns the card's facts handoff: the customer's request, comments, this round and attachments, plus estimate-time hints to verify. |
+| `get_work_prompt` | Returns the card's handoff: a work brief refined against the repository when an estimate ran, the customer's request, comments, this round and attachments, and minimal-change principles. |
 | `get_work_plan_scope` | Returns a copied PR or whole-plan prompt and its PASS checklist. |
 | `list_updates` | Polls new or changed card activity. |
 | `start_work` | Marks a card as in progress. |
@@ -127,14 +127,17 @@ from the handoff's work identity section into every commit and the PR body.
 Passing the branch, result commit SHA, and PR number to `submit_for_review` is
 optional; Tralalero keeps them on the card's server-side work round (no screen
 renders them yet) and never verifies them or writes to the repository work
-records. Its repository writes are limited to ledger setup and adding missing
-memory instructions, preserving existing AGENTS.md and CLAUDE.md; repository
-norms and memory guidance live in those documents, not in the handoff.
+records. Its repository writes are limited to ledger setup and its own memory
+instructions block in AGENTS.md and CLAUDE.md, which explains how to read
+`TRALALERO.md`; everything else in those files is preserved.
 
-The handoff is assembled from the card's records on every call. Its first four
-sections (request, comments, this round, attachments) decide the work; the
-priced scope and candidate files an estimate produced are labeled as guesses to
-verify against the code. Delivery waits while the card's estimate is running.
+The handoff is assembled on every call. When an estimate ran, section 0 is a
+work brief: the request refined against the repository, with requirements that
+quote the customer, a plan, checks and what not to build, plus the memory
+documents to read. Sections 1–4 carry the customer's own request, comments, this
+round and attachments; where they disagree with the brief, the customer wins.
+Section 7 asks for the smallest change that meets every requirement. Delivery
+waits while the card's estimate is running.
 
 ## Verify
 

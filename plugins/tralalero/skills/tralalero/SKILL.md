@@ -9,7 +9,7 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 3.2.0
+version: 3.3.0
 ---
 
 # Tralalero workboard
@@ -21,15 +21,16 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 1. Get the exact `workRef`: keep a pasted card link unchanged, or call `list_boards`, then `list_cards` with the returned `boardId`.
 2. Call `get_work_prompt` and read the whole handoff. Download and inspect the attachments from its appendix links, including images and PDFs.
 3. Call `start_work` immediately before the first edit. Passing `expectedRequestFingerprint` from step 2 is optional; on `requestChanged: true`, read the handoff again.
-4. Implement and verify the change.
+4. Implement the change and run the brief's checks.
 5. Call `get_work_prompt` again. If `requestFingerprint` changed, handle the new customer material first.
 6. Call `submit_for_review` with a customer-facing note. Branch, full commit SHA and PR number are optional records that nothing verifies.
 
 ## Reading the handoff
 
-- Sections 1–4 are the card's record: the customer's request, the comments, this round and the attachments. They decide what to build. A comment marked withdrawn is history, not a requirement. On a rework round, section 3 gives the rejection reason and what changed since the last submission. The handoff always carries the full request.
-- Section 5 (priced scope) and section 6 (candidate files) are guesses the server made at estimate time from a subset of files. Check them against the current code and the customer's words; where they disagree, follow the customer.
-- Repository norms and memory, when present, live in the repository's AGENTS.md/CLAUDE.md/TRALALERO.md.
+- Section 0, when present, is the work brief: the request refined against this repository at estimate time — requirements with the customer's words, a plan, checks and what not to build. Work from it; if marked stale, the customer's words in sections 1–4 come first.
+- Sections 1–4 are the card's record: request, comments, this round, attachments. Where the brief disagrees with the customer's words, follow the customer. A withdrawn comment is history. On rework, section 3 gives the rejection reason and what changed.
+- The plan and section 6 (candidate files) come from the estimate's commit; trace the real flow in the current code before editing. Without a brief, section 5 lists the priced scope.
+- Section 7 asks for the smallest change that meets every requirement. If the repository has `TRALALERO.md`, read it and the memory documents the handoff lists.
 - `work_prompt_pending` means the estimate is still running; call again later.
 
 ## Protocol
@@ -48,7 +49,7 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 | `list_boards` | Boards you can access, with role and locale. |
 | `list_cards` | Cards on one board (explicit `boardId`). |
 | `get_card` | One card's request, comments, attachments and estimate state. |
-| `get_work_prompt` | The card's facts handoff (developer side). |
+| `get_work_prompt` | The card's work brief and facts handoff (developer side). |
 | `list_updates` | Poll board changes since an ISO 8601 `now`. |
 | `start_work` | Move a request into progress before editing. |
 | `submit_for_review` | Post the completion note and move to review. |

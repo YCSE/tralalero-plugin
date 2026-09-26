@@ -1,6 +1,6 @@
 {
   "name": "tralalero",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Work Tralalero cards or complete PR-scoped work plans with atomic progress and review reporting.",
   "author": {
     "name": "YCSE",
@@ -25,7 +25,7 @@
   "interface": {
     "displayName": "Tralalero Workboard",
     "shortDescription": "Implement and report customer workboard requests",
-    "longDescription": "Connect an AI coding agent to a Tralalero workboard, read each card's facts handoff or a PR-scoped plan prompt, verify PASS checklists, and move every grouped card together for customer review.",
+    "longDescription": "Connect an AI coding agent to a Tralalero workboard, read each card's work brief and handoff or a PR-scoped plan prompt, verify PASS checklists, and move every grouped card together for customer review.",
     "developerName": "YCSE",
     "category": "Developer Tools",
     "capabilities": [
