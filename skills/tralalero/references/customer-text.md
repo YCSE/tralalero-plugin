@@ -8,7 +8,7 @@ Use the board locale. Autonomous entry gets it from `list_boards`. Direct-link e
 
 ## Comments and completion notes
 
-Write two to four plain sentences: what changed, and which screen or control the customer should use to check it.
+Write two to four plain sentences: what changed, and which screen or control the customer should use to check it. A completion note goes out only once the fix is live where the customer tests; if that place is not obvious, such as a test site or an app update, say which.
 
 The server refuses a comment that contains:
 

@@ -3,7 +3,9 @@
 Work Tralalero customer change-request cards from an AI coding agent without
 leaving the workboard workflow. The review request is a plain completion notice:
 request fingerprints and Git references are optional records, and nothing is
-verified against the repository.
+verified against the repository. Send it, or any comment saying the work is
+done, only when every test passes and the change is deployed where the tester
+can reproduce and verify the fix.
 
 ## Install
 
@@ -115,7 +117,8 @@ A copied work-plan prompt contains an exact ScopeRef. Preserve it unchanged:
 by `/units/{unitId}` selects one PR. Read it with `get_work_plan_scope`, call
 `get_work_prompt` for every returned WorkRef and read it in full,
 call `start_work_scope` immediately before editing, and call
-`submit_scope_for_review` only after every returned criterion passes. Supply one
+`submit_scope_for_review` only after every returned criterion passes, every test
+passes and every unit is deployed where the tester can verify it. Supply one
 PASS evidence item per criterion and one customer-facing comment per returned
 card WorkRef. Pass every prompt's `expectedRequestFingerprint` when starting.
 The first start locks the plan to whole-plan or per-PR execution; the two modes
