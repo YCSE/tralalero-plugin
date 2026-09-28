@@ -7,10 +7,13 @@
 | `work_prompt_changed` | The card changed while the handoff was being assembled. | Call `get_work_prompt` again. |
 | `requestChanged: true` | The customer's request changed since the fingerprint you passed. The move or submission still happened. | Read the handoff again and handle the new material. |
 | Not found, with archive guidance | Completed cards from earlier months move to monthly archives. | Do not retry; the result will not change. |
-| `start_work` refused for the column | Only Request and Urgent cards can start. A card in Review returns only when the customer asks for rework. | Leave the card where it is. |
+| `start_work` refused for the column | Request, Urgent and Review cards can start; a Review card goes back to In progress. A Done card was confirmed by the customer. | Leave a Done card where it is; take further changes as a new request. |
 | Comment or question refused | The customer-text guard found technical content. | Rewrite it for the customer; see `references/customer-text.md`. |
 | `ask_customer` refused | A question is already unanswered, an AI clarification is open, you are the requester, or the card is done. | Wait for the reply, or use `add_comment`. |
-| Scope start or submit refused | Nothing moved: a criterion, a card comment or a card state did not match. | Fix the input from `get_work_plan_scope` and retry; see `references/work-plan.md`. |
+| `delete_comment` refused | A rework reason or an automatic record stays. Not found means that `commentId` is not on the card. | Leave a protected record, or correct it with `add_comment`. For not found, take the `commentId` from `get_card` again. |
+| `delete_comment` returns `requestChanged: true` | You withdrew a customer's comment, so the request changed. `alreadyWithdrawn: true` instead means nothing changed. | Read the handoff again. A work plan that includes the card may need a new plan. |
+| `submit_for_review` on a Review card: `commentWithdrawn: true`, or refused | The card is already in review. Its note with this text was withdrawn, or no note matches; nothing was posted. | Post the corrected note with `add_comment`; the card stays in review. |
+| Scope start or submit refused | Nothing moved: a criterion, a card comment or a card state did not match. | Fix the input from `get_work_plan_scope` and retry; see `references/work-plan.md`. If a submitted scope has a card the customer confirmed as Done, it cannot be reopened; do not retry. |
 
 ## Attachment links
 

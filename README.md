@@ -35,7 +35,7 @@ To install into every supported client detected on the current machine:
 npx plugins add YCSE/tralalero-plugin --scope user
 ```
 
-The package includes all fifteen MCP tools and the `tralalero` skill that
+The package includes all sixteen MCP tools and the `tralalero` skill that
 defines the safe end-to-end card cycle. If a client cannot load the plugin, use
 the [direct MCP fallback](https://tralalero.app/connect.md).
 
@@ -99,12 +99,13 @@ that client.
 | `submit_scope_for_review` | Atomically posts per-card completion notes and moves a verified scope to review. |
 | `add_comment` | Adds a customer-facing comment. |
 | `ask_customer` | Sends one blocking question to the customer. |
+| `delete_comment` | Withdraws a comment, completion note, or question from the customer's view. |
 
 `list_cards` and `list_updates` require an explicit board ID. Every card tool
 uses the exact returned WorkRef (`/work/{boardId}/cards/{cardId}`); a pasted
 canonical Tralalero card URL is also a WorkRef. Preserve that value unchanged
 for `get_card`, `get_work_prompt`, `start_work`, `submit_for_review`,
-`add_comment`, and `ask_customer`. Its direct reads return `board.boardId` for
+`add_comment`, `ask_customer`, and `delete_comment`. Its direct reads return `board.boardId` for
 polling, while `get_work_prompt.structured.locale` is the customer-comment
 language. Never select a card from a current repository, Git remote, or `WB-n`
 number.
