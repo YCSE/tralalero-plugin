@@ -18,10 +18,10 @@ Keep the copied value unchanged. Never build it from a card, repository, PR titl
 3. For every returned `workRef`, call `get_work_prompt` and read it in full, including its attachments, before any edit.
 4. Call `start_work_scope` immediately before the first edit. You may pass `requestFingerprints` (each card's `workRef` with the `expectedRequestFingerprint` from its handoff). A card listed in the response's `requestChanged` has new customer material; read its handoff again.
 5. Implement the scope and verify every criterion. Do not mark a criterion PASS without concrete evidence.
-6. Submit only when the tester can reproduce and verify every card in the scope: every test passes and every unit's change is deployed where they test. Until then, do not submit or comment that the work is done; tell your user what remains.
-7. Before submitting, call `get_work_prompt` again for every card. If a `requestFingerprint` changed, handle the new material first.
+6. Before submitting, call `get_work_prompt` again for every card. If a `requestFingerprint` changed, handle the new material first.
+7. Submit only when the tester can reproduce and verify every card in the scope: every test passes and every unit's change is deployed where they test. Until then, do not submit or comment that the work is done; tell your user what remains.
 8. Call `submit_scope_for_review` with exactly one `criterionEvidence` entry (up to 500 characters) for every returned `criterionId` and exactly one `cardComments` entry for every returned card `workRef`. Each card comment follows the customer-text rules on its own; write a note that fits that card instead of copying one note across the scope. `gitSubmissions` may add, per card, the final request fingerprint, branch, full result commit SHA and PR number as records. Every field there is optional and nothing is verified.
-9. If you find more to fix after submitting, call `start_work_scope` with the same `scopeRef`. It moves every card of the scope back to In progress; fix, verify and, once step 6 holds again, submit with notes on what changed. A card in the scope cannot be reopened on its own with `start_work`, and once the customer has confirmed any card as Done, the scope cannot be reopened.
+9. If you find more to fix after submitting, call `start_work_scope` with the same `scopeRef`. It moves every card of the scope back to In progress; fix, verify and, once step 7 holds again, submit with notes on what changed. A card in the scope cannot be reopened on its own with `start_work`, and once the customer has confirmed any card as Done, the scope cannot be reopened.
 
 ## Rules the server enforces
 

@@ -8,7 +8,7 @@ Use the board locale. Autonomous entry gets it from `list_boards`. Direct-link e
 
 ## Comments and completion notes
 
-Write two to four plain sentences: what changed, and which screen or control the customer should use to check it. A completion note goes out only once the fix is live where the customer tests; if that place is not obvious, such as a test site or an app update, say which.
+Write two to four plain sentences: what changed, and which screen or control the customer should use to check it. A completion note goes out only once the fix is live where the customer tests; if that place is not obvious, such as a test site or an app update, say which. Name it in words when its link would be refused below, such as a GitHub Pages preview.
 
 The server refuses a comment that contains:
 
@@ -17,7 +17,7 @@ The server refuses a comment that contains:
 - file paths shaped like `a/b/c` or `name.ext`
 - code symbols in camelCase, snake_case or SCREAMING_SNAKE
 - paired SQL keywords
-- GitHub, localhost or `file://` links
+- links whose address contains GitHub, GitLab, Bitbucket or Azure (GitHub Pages previews included), localhost or `file://` links
 - secret-shaped values
 
 Ordinary preview links are allowed, and so are UI directions such as "Settings > Notifications". When a comment is refused, rewrite it in language the customer understands; do not just strip punctuation until it passes.

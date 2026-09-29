@@ -9,7 +9,7 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   delete_comment, get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 3.6.0
+version: 3.6.1
 ---
 
 # Tralalero workboard
@@ -22,8 +22,8 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 2. Call `get_work_prompt` and read the whole handoff. Download and inspect its appendix attachments, including images and PDFs.
 3. Call `start_work` immediately before the first edit. Passing `expectedRequestFingerprint` from step 2 is optional; on `requestChanged: true`, read the handoff again.
 4. Implement the change and run the brief's checks.
-5. Move to review only when the tester can reproduce and verify the fix: every test passes and the change is deployed where they test. Until then, do not call `submit_for_review` or comment that the work is done; tell your user what remains.
-6. Call `get_work_prompt` again. If `requestFingerprint` changed, handle the new customer material first.
+5. Call `get_work_prompt` again. If `requestFingerprint` changed, handle the new customer material first.
+6. Move to review only when the tester can reproduce and verify the fix: every test passes and the change is deployed where they test. Until then, do not call `submit_for_review` or comment that the work is done; tell your user what remains.
 7. Call `submit_for_review` with a customer-facing note. Branch, full commit SHA and PR number are optional records that nothing verifies.
 
 ## Reading the handoff
@@ -70,7 +70,7 @@ A copied work-plan prompt carries a `scopeRef`; keep it unchanged and read it wi
 For every returned `workRef`, call `get_work_prompt` and read it in full before starting.
 Call `start_work_scope` immediately before the first edit.
 
-Submit with `submit_scope_for_review` only when step 5 holds for every card: one PASS evidence entry per `criterionId` and one customer note per card. Details are in `references/work-plan.md`.
+Submit with `submit_scope_for_review` only when step 6 holds for every card: one PASS evidence entry per `criterionId` and one customer note per card. Details are in `references/work-plan.md`.
 
 ## More
 
