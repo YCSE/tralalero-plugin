@@ -103,6 +103,11 @@ that client.
 | `ask_customer` | Sends one blocking question to the customer. |
 | `delete_comment` | Withdraws a comment, completion note, or question from the customer's view. |
 
+The plugin is for a board's owner and developers. Any member can use
+`list_boards`, `list_cards`, `get_card`, and `list_updates`. Every other tool,
+including the board conversation tools below, refuses calls from a tester
+account.
+
 `list_cards` and `list_updates` require an explicit board ID. Every card tool
 uses the exact returned WorkRef (`/work/{boardId}/cards/{cardId}`); a pasted
 canonical Tralalero card URL is also a WorkRef. Preserve that value unchanged

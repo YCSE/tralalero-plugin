@@ -3,6 +3,7 @@
 | Signal | Meaning | Next step |
 | --- | --- | --- |
 | HTTP `401` | This client's Tralalero sign-in is missing or expired, or the personal access token fallback (`TRALALERO_MCP_TOKEN`) is missing or revoked. | Complete the OAuth sign-in in the client (Codex `codex mcp login tralalero`; Claude Code `/mcp`, then Authenticate), or re-wire the token. |
+| Refused for owner or developer accounts only (the message names the `tester` role) | This board lists your account as a tester, the customer side. On that board a tester can use only `list_boards`, `list_cards`, `get_card` and `list_updates`; every other tool, board conversations included, is for the board's owner and developers. | Tell your user; retrying will not help. Do not suggest changing the role: developer-side material is not for the customer. |
 | `work_prompt_pending` | The card's AI estimate is still running. | Wait, then call `get_work_prompt` again. |
 | `work_prompt_changed` | The card changed while the handoff was being assembled. | Call `get_work_prompt` again. |
 | `requestChanged: true` | The customer's request changed since the fingerprint you passed. The move or submission still happened. | Read the handoff again and handle the new material. |

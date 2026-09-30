@@ -9,12 +9,12 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   delete_comment, get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 3.6.1
+version: 3.6.2
 ---
 
 # Tralalero workboard
 
-Non-technical customers file change requests as cards on a Tralalero workboard. You implement a card, or a generated PR/whole-plan scope, and report back for the customer's review with the MCP tools below.
+Non-technical customers file change requests as cards on a Tralalero workboard. You implement a card, or a generated PR/whole-plan scope, and report back for the customer's review.
 
 ## Card cycle
 
@@ -49,7 +49,7 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 | `list_boards` | Boards you can access, with role and locale. |
 | `list_cards` | Cards on one board (explicit `boardId`). |
 | `get_card` | One card's request, comments, attachments and estimate state. |
-| `get_work_prompt` | The card's handoff and work brief (developer side). |
+| `get_work_prompt` | The card's handoff and work brief. |
 | `list_updates` | Poll board changes since an ISO 8601 `now`. |
 | `start_work` | Move a request, or a Review card to fix again, into progress. |
 | `submit_for_review` | Post the completion note and move to review. |
@@ -59,8 +59,8 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 | `get_work_plan_scope` | A copied plan or PR prompt with its PASS checklist. |
 | `start_work_scope` | Move every card in a scope into progress at once. |
 | `submit_scope_for_review` | Submit a fully verified scope for review at once. |
-| `list_board_messages` | Latest board channel messages (developer side). |
-| `get_thread` | One conversation thread (developer side). |
+| `list_board_messages` | Latest board channel messages. |
+| `get_thread` | One conversation thread. |
 | `list_message_updates` | Message edits and deletions since a cursor. |
 
 ## Work plans
