@@ -9,7 +9,7 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
   delete_comment, get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 3.6.2
+version: 3.6.3
 ---
 
 # Tralalero workboard
