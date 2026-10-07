@@ -60,11 +60,11 @@ it later in **MY -> Connect AI tools**.
 
 ### Upgrading from an earlier release
 
-Earlier releases wired the token for you; this release does not. After the
-plugin updates, a client that relied only on `TRALALERO_MCP_TOKEN` answers `401`
-until you either complete the sign-in above (recommended) or re-add the token in
-that client's user-scope configuration as described in the fallback below.
-Tool names and inputs are unchanged.
+Earlier releases wired a token for you; current releases do not. After the
+plugin updates, a client that relied only on that token answers `401` until you
+either complete the sign-in above (recommended) or add the token to that
+client's user-scope configuration as described in the fallback below. Tool
+names and inputs are unchanged.
 
 ### Personal access token (fallback)
 
@@ -73,17 +73,28 @@ install working. In the Tralalero app, open **MY -> Connect AI tools** and issue
 one. It is shown once. Never place it in project configuration or commit it to a
 customer's repository.
 
-- Codex and Claude plugin manifests can read `TRALALERO_MCP_TOKEN` when you add
-  the wiring yourself. Persist its export in the user shell profile (for zsh,
-  `${ZDOTDIR:-$HOME}/.zshenv`) and keep that file user-only.
-- Cursor (`~/.cursor/mcp.json`) and VS Code (**MCP: Open User Configuration**)
-  require the literal user-scoped header
-  `"Authorization": "Bearer <token>"`; they do not read the shell placeholder.
+- The plugin never reads a token from your environment or files; you add it to
+  the client yourself, in user scope, as an `Authorization: Bearer <token>`
+  header. The [direct MCP fallback](https://tralalero.app/connect.md) shows the
+  exact user-scope entry for Claude Code, Codex, Cursor and VS Code.
 - Hermes Agent stores the credential through its token prompt.
 
 Restart the client or open a new session after signing in or wiring a token. If
 a client cannot install the plugin, use the linked direct MCP fallback only for
 that client.
+
+## Network and credentials
+
+- **Endpoint.** The plugin connects to one remote MCP server,
+  `https://tralalero.app/mcp` (Streamable HTTP), and to nothing else. It ships
+  no local server, hooks or scripts.
+- **Credentials.** Either an OAuth sign-in that your client runs against your
+  Tralalero account (single scope `workboard`, revocable in **MY -> Connect AI
+  tools**), or a personal access token you add yourself as described above. The
+  repository contains no credentials.
+- **Publisher.** Tralalero is built and operated by YCSE at
+  [tralalero.app](https://tralalero.app); this repository is its official plugin
+  source. Support: [tralalero.app/support](https://tralalero.app/support).
 
 ## What you get
 

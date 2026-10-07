@@ -1,6 +1,6 @@
 {
   "name": "tralalero",
-  "version": "3.6.3",
+  "version": "3.6.4",
   "description": "Work Tralalero cards or complete PR-scoped work plans with atomic progress and review reporting.",
   "author": {
     "name": "YCSE",
@@ -11,9 +11,7 @@
   "license": "MIT",
   "keywords": [
     "tralalero",
-    "workboard",
-    "kanban",
-    "mcp"
+    "tralalero-workboard"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
@@ -30,7 +28,9 @@
     ],
     "websiteURL": "https://tralalero.app",
     "defaultPrompt": [
-      "Open my Tralalero workboard and help me complete a customer request."
+      "Open my Tralalero workboard and help me complete a customer request.",
+      "List the open cards on my Tralalero board and suggest which request to start first.",
+      "Read the Tralalero card I paste and summarize what the customer is asking for."
     ],
     "brandColor": "#1557FF"
   }
