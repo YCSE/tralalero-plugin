@@ -8,8 +8,9 @@ description: Use when working cards on a Tralalero workboard — reading a custo
   tralalero MCP tool (list_boards, list_cards, get_card, get_work_prompt,
   list_board_messages, get_thread, list_message_updates,
   list_updates, start_work, submit_for_review, add_comment, ask_customer,
-  delete_comment, get_work_plan_scope, start_work_scope, submit_scope_for_review).
-version: 3.6.4
+  delete_comment, create_card, get_work_plan_scope, start_work_scope,
+  submit_scope_for_review).
+version: 3.7.0
 ---
 
 # Tralalero workboard
@@ -56,6 +57,7 @@ Non-technical customers file change requests as cards on a Tralalero workboard. 
 | `add_comment` | Comment to the customer without moving the card. |
 | `ask_customer` | Ask the requester one blocking question. |
 | `delete_comment` | Withdraw a comment when your user asks. |
+| `create_card` | File a request card when your user asks; it starts an AI estimate. |
 | `get_work_plan_scope` | A copied plan or PR prompt with its PASS checklist. |
 | `start_work_scope` | Move every card in a scope into progress at once. |
 | `submit_scope_for_review` | Submit a fully verified scope for review at once. |

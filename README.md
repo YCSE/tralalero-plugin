@@ -37,7 +37,7 @@ To install into every supported client detected on the current machine:
 npx plugins add YCSE/tralalero-plugin --scope user
 ```
 
-The package includes all sixteen MCP tools and the `tralalero` skill that
+The package includes all seventeen MCP tools and the `tralalero` skill that
 defines the safe end-to-end card cycle. If a client cannot load the plugin, use
 the [direct MCP fallback](https://tralalero.app/connect.md).
 
@@ -113,13 +113,14 @@ that client.
 | `add_comment` | Adds a customer-facing comment. |
 | `ask_customer` | Sends one blocking question to the customer. |
 | `delete_comment` | Withdraws a comment, completion note, or question from the customer's view. |
+| `create_card` | Files a new request card on a board, like the app's request form; an AI estimate starts automatically. |
 
 The plugin is for a board's owner and developers. Any member can use
 `list_boards`, `list_cards`, `get_card`, and `list_updates`. Every other tool,
 including the board conversation tools below, refuses calls from a tester
 account.
 
-`list_cards` and `list_updates` require an explicit board ID. Every card tool
+`list_cards`, `list_updates`, and `create_card` require an explicit board ID. Every card tool
 uses the exact returned WorkRef (`/work/{boardId}/cards/{cardId}`); a pasted
 canonical Tralalero card URL is also a WorkRef. Preserve that value unchanged
 for `get_card`, `get_work_prompt`, `start_work`, `submit_for_review`,
