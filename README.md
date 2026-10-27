@@ -129,6 +129,15 @@ polling, while `get_work_prompt.structured.locale` is the customer-comment
 language. Never select a card from a current repository, Git remote, or `WB-n`
 number.
 
+A repository can pin its workboards in a `.tralalero.json` file at its root,
+for example `{ "boardIds": ["<boardId>"] }`. The agent writes the file only
+after you agree. In that repository it then works only on the listed boards
+unless you confirm another one. Without a pin, when you have not pasted a link
+or named a board and your account has more than one, it asks which board the
+repository works. The pin keeps an
+agent's work on the right workboard; it is not access control, and your account
+can still reach every board it belongs to.
+
 A copied work-plan prompt contains an exact ScopeRef. Preserve it unchanged:
 `/work/{boardId}/plans/{planId}` selects the whole plan and the same path followed
 by `/units/{unitId}` selects one PR. Read it with `get_work_plan_scope`, call
